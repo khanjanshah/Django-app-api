@@ -1,0 +1,118 @@
+alpine - light weight version of docker file
+
+Docker file notes:
+
+FROM python:3.7-alpine
+LABEL MAINTAINER Kjshah Digital World --> Name of maintainer who maintains this project 
+
+ENV PYTHONUNBUFFERED 1  --> make environment which helps user when he/she runs docker file, the env is named
+
+as PYTHONUNBUFFERED 1, which says that user can run docker file without buffering, this helps user to run
+python code faster and in unbuffered state. 
+
+COPY ./requirements.txt /requirements.txt --> Installing dependencies, for virtual environment.
+RUN pip install -r /requirements.txt 
+
+RUN mkdir /app --> make empty directory /app on our docker image.
+WORKDIR /app  --> switch the directory /app as our working directory.
+COPY ./app /app --> copy our local machine code in ./app to docker file directory /app
+
+RUN adduser -D user --> make user and allow user to run only applications (using -D command) in our project. 
+USER user // make seperate user to run processes in our app.
+
+ // For security purpose we add this user, or else user can run our through root which might not good,
+ for our code, as user can change or add some vicitous code. This user command allow user to access only
+ limited commands or files from our project directory.
+
+
+////
+
+docker build .  --> command used to run docker file.
+
+Docker-compose --> It is a tool that allows us to run our docker image easily.
+
+It is used to run various services in our project. ( services like: our python app, database etc.)
+
+To run unit tests: docker-compose run web python manage.py test
+
+///
+
+Is TDD a unit test?
+Test-Driven Development (TDD) is one of the core practices of Extreme Programming (XP). ... 
+Programmer tests are created using a unit testing framework and are 100% automated. 
+TDD uses a “test first” approach in which test code is written before the actual code.
+
+To run test cases in Test Driven Development ENV: make use of flake8 library.
+i.e: docker-compose run web python manage.py test && flake8
+
+For Basic unit testing: docker-compose run web python manage.py test
+
+cmd:> docker-compose run web python manage.py test && flake8
+--The token '&&' is not a valid statement separator in this version.
+
+- For such error:
+
+use ; instead of && -> i.e > docker-compose run web python manage.py test ; flake8
+
+///
+
+If you get error in docker-compose; like 
+> error response from daemon: status code not OK but 500 in vscode after running docker with python.
+
+solution: Go to docker desktop and go to settings>Resources>File Sharing> give your path to drive where 
+you are running your vs code or project code.
+
+like: C:\
+
+
+// Docs: For creating Django project.
+
+https://docs.djangoproject.com/en/2.1/ref/django-admin/#startproject
+
+// Travis-CI tutorial
+
+https://docs.travis-ci.com/user/tutorial/
+
+// flake8 docs:
+
+https://flake8.pycqa.org/en/latest/
+
+// Dockerfile reference:
+
+https://docs.docker.com/engine/reference/builder/
+
+https://docs.docker.com/compose/
+
+https://hub.docker.com/
+
+// Python Package Index Pypi
+
+https://pypi.org/
+
+// Django Unit Testing:
+
+https://docs.djangoproject.com/en/2.1/internals/contributing/writing-code/unit-tests/
+
+https://docs.python.org/3/library/unittest.html#assert-methods
+
+https://docs.djangoproject.com/en/2.1/ref/django-admin/#test
+
+// Custom User model
+
+https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#substituting-a-custom-user-model
+
+https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#django.contrib.auth.get_user_model
+
+https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#django.contrib.auth.models.AbstractBaseUser.check_password
+
+https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#django.contrib.auth.models.PermissionsMixin
+
+https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#django.contrib.auth.models.BaseUserManager
+
+https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#django.contrib.auth.models.AbstractBaseUser
+
+
+// Normalize Email address docs:
+
+https://docs.djangoproject.com/en/2.1/topics/auth/customizing/#django.contrib.auth.models.BaseUserManager.normalize_email
+
