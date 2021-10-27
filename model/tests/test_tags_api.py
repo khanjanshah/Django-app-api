@@ -10,7 +10,7 @@ from core.models import Tag
 from model.serializers import TagSerializer
 
 
-TAGS_URL = reverse('model:tag-list')
+TAGS_URL = reverse('model:data')
 
 
 class PublicTagsApiTests(TestCase):
@@ -39,8 +39,8 @@ class PrivateTagsApiTests(TestCase):
 
     def test_retrieve_tags(self):
         """Test retrieving tags"""
-        Tag.objects.create(user=self.user, name='Vegan')
-        Tag.objects.create(user=self.user, name='Dessert')
+        Tag.objects.create(user=self.user, name='Vegan', Object_file=1, Development_data=2, Monitoring_data=3)
+        Tag.objects.create(user=self.user, name='Dessert', Object_file=4, Development_data=5, Monitoring_data=6)
 
         res = self.client.get(TAGS_URL)
 

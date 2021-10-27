@@ -13,7 +13,7 @@ services:
     ports: 
       - "8000:8000"
     environment: 
-      - DB_HOST=db
+      - DB_HOST=localhost
       - DB_NAME=app
       - DB_USER=postgres
       - DB_PASS=kjshah007
@@ -28,3 +28,6 @@ services:
       - POSTGRES_DB=app
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=kjshah007   
+      - POSTGRES_HOST=localhost
+    ports:
+      - "8001:5432"

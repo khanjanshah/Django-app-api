@@ -6,7 +6,7 @@ from django.conf import settings
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, password=None, **extra_fields):
+    def Register(self, email, password=None, **extra_fields):
         """Creates and saves a new user"""
         if not email:
             raise ValueError('User must have an email address')
@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password):
         """Creates and saves a new super user"""
-        user = self.create_user(email, password)
+        user = self.Register(email, password)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -39,9 +39,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
 
-class Tag(models.Model):
-    """Tag to be used for a model monitor"""
+class Data(models.Model):
+    """Data to be used for a model monitor"""
     name = models.CharField(max_length=255)
+    Object_file = models.FileField()
+    Development_data = models.FileField()
+    Monitoring_data = models.FileField()
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE

@@ -49,7 +49,10 @@ class ModelTests(TestCase):
         """Test the tag string representation"""
         tag = models.Tag.objects.create(
             user=sample_user(),
-            name='Vegan'
+            name='Vegan',
+            Object_file=1,
+            Development_data=2,
+            Monitoring_data=3
         )
 
         self.assertEqual(str(tag), tag.name)

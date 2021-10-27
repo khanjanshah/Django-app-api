@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from core.models import Tag, Ingredient
+from core.models import Data, Ingredient
 
 from model import serializers
 
@@ -10,7 +10,7 @@ from model import serializers
 class BaseModelAttrViewSet(viewsets.GenericViewSet,
                            mixins.ListModelMixin,
                            mixins.CreateModelMixin):
-    """Base viewset for user owned recipe attributes"""
+    """Base viewset for user owned  attributes"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
@@ -23,10 +23,10 @@ class BaseModelAttrViewSet(viewsets.GenericViewSet,
         serializer.save(user=self.request.user)
 
 
-class TagViewSet(BaseModelAttrViewSet):
+class DataIngestionViewSet(BaseModelAttrViewSet):
     """Manage tags in the database"""
-    queryset = Tag.objects.all()
-    serializer_class = serializers.TagSerializer
+    queryset = Data.objects.all()
+    serializer_class = serializers.DataIngestionSerializer
 
 
 class IngredientViewSet(BaseModelAttrViewSet):
